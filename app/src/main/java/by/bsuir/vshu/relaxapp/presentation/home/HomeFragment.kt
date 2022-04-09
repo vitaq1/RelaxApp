@@ -1,4 +1,4 @@
-package by.bsuir.vshu.relaxapp.ui.home
+package by.bsuir.vshu.relaxapp.presentation.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

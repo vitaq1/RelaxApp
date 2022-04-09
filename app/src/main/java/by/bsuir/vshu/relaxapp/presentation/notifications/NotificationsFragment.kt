@@ -1,4 +1,4 @@
-package by.bsuir.vshu.relaxapp.ui.notifications
+package by.bsuir.vshu.relaxapp.presentation.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater
