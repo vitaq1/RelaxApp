@@ -14,8 +14,12 @@
       android:src="@drawable/onboarding" />
 
   <Button
+      android:id="@+id/signInButton"
       android:text="Войти в аккаунт"
       android:background="@drawable/button_corners"
+      android:textAllCaps="false"
+      android:fontFamily="@font/istok"
+      android:textSize="21sp"
       android:backgroundTint="#7c9a92"
       android:theme="@style/Button.Default"
       android:layout_width="355dp"
@@ -23,6 +27,15 @@
       android:layout_centerHorizontal="true"
       android:layout_alignParentBottom="true"
       android:layout_marginBottom="78dp"
+      />
+
+  <ImageView
+      android:id="@+id/signUpButton"
+      android:layout_width="355dp"
+      android:layout_height="25dp"
+      android:layout_centerHorizontal="true"
+      android:layout_alignParentBottom="true"
+      android:layout_marginBottom="25dp"
       />
 
   </RelativeLayout>
