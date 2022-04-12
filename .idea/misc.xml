@@ -6,8 +6,12 @@
         <entry key="..\:/RelaxApp/app/src/main/res/drawable/button_corners.xml" value="0.124" />
         <entry key="..\:/RelaxApp/app/src/main/res/drawable/button_selector.xml" value="0.124" />
         <entry key="..\:/RelaxApp/app/src/main/res/drawable/ic_launcher.xml" value="0.1855" />
+        <entry key="..\:/RelaxApp/app/src/main/res/drawable/ic_logo.xml" value="0.1855" />
+        <entry key="..\:/RelaxApp/app/src/main/res/drawable/ic_music.xml" value="0.1855" />
         <entry key="..\:/RelaxApp/app/src/main/res/drawable/ic_sad.xml" value="0.1855" />
-        <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_login.xml" value="0.11302083333333333" />
+        <entry key="..\:/RelaxApp/app/src/main/res/drawable/nav_bar_selector.xml" value="0.1855" />
+        <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_main.xml" value="0.3765932792584009" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_onboarding.xml" value="0.29465095194922936" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_splash.xml" value="0.11302083333333333" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/fragment_home.xml" value="0.11302083333333333" />

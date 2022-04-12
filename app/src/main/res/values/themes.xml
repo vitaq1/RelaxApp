@@ -18,4 +18,10 @@
     <style name="Button.Default" parent="ThemeOverlay.AppCompat">
         <item name="colorAccent">#7c9a92</item>
     </style>
+
+    <style name="Navbar.Default" parent="ThemeOverlay.AppCompat">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorOnSecondary">@color/app_gray</item>
+    </style>
+
 </resources>
