@@ -37,88 +37,251 @@
 
 
     <HorizontalScrollView
+        android:id="@+id/moodScrollView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/welcomeRl"
-        android:scrollbars="none"
         android:layout_marginTop="25dp"
-        >
+        android:scrollbars="none">
 
-        <RadioGroup
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            >
+            android:layout_height="wrap_content">
 
-            <RadioButton
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:button="@android:color/transparent"
-                android:background="@drawable/radio_button_selector"
-                android:drawableTop="@drawable/ic_calm"
-                android:drawableTint="@color/app_main"
-                android:drawablePadding="10dp"
-                app:tint="@color/app_main"
+            <RelativeLayout
+                android:id="@+id/calmRl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="12dp"
-                />
+                >
 
-            <RadioButton
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:button="@android:color/transparent"
-                android:background="@drawable/radio_button_selector"
-                android:drawableTop="@drawable/ic_relax"
-                android:drawableTint="@color/app_main"
-                android:drawablePadding="10dp"
-                app:tint="@color/app_main"
+                <RadioButton
+                    android:id="@+id/calmRadioButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_calm"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/app_main"
+                    app:tint="@color/app_main" />
+
+                <TextView
+                    android:id="@+id/calmText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/calmRadioButton"
+                    android:layout_centerHorizontal="true"
+                    android:text="Спокойным"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:layout_marginTop="5dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relaxRl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                />
+                android:layout_toEndOf="@id/calmRl"
+                >
 
-            <RadioButton
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:button="@android:color/transparent"
-                android:background="@drawable/radio_button_selector"
-                android:drawableTop="@drawable/ic_focus"
-                android:drawableTint="@color/app_main"
-                android:drawablePadding="10dp"
-                app:tint="@color/app_main"
+                <RadioButton
+                    android:id="@+id/relaxRadioButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_relax"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/app_main"
+                    app:tint="@color/app_main" />
+
+                <TextView
+                    android:id="@+id/relaxText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/relaxRadioButton"
+                    android:layout_centerHorizontal="true"
+                    android:text="Расслабленным"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/focusRl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                />
-            <RadioButton
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:button="@android:color/transparent"
-                android:background="@drawable/radio_button_selector"
-                android:drawableTop="@drawable/ic_excited"
-                android:drawableTint="@color/app_main"
-                android:drawablePadding="15dp"
-                app:tint="@color/app_main"
+                android:layout_toEndOf="@id/relaxRl"
+                >
+
+                <RadioButton
+                    android:id="@+id/focusRadioButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_focus"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/app_main"
+                    app:tint="@color/app_main" />
+
+                <TextView
+                    android:id="@+id/focusText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/focusRadioButton"
+                    android:layout_centerHorizontal="true"
+                    android:text="Сосредоточенным"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/excitedRl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                />
+                android:layout_toEndOf="@id/focusRl"
+                >
 
-            <RadioButton
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:button="@android:color/transparent"
-                android:background="@drawable/radio_button_selector"
-                android:drawableTop="@drawable/ic_fun"
-                android:drawableTint="@color/app_main"
-                android:drawablePadding="10dp"
-                app:tint="@color/app_main"
+                <RadioButton
+                    android:id="@+id/excitedRadioButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_excited"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/app_main"
+                    app:tint="@color/app_main" />
+
+                <TextView
+                    android:id="@+id/excitedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/excitedRadioButton"
+                    android:layout_centerHorizontal="true"
+                    android:text="Взволнованным"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:layout_marginTop="5dp"
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/funRl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="12dp"
-                />
+                android:layout_toEndOf="@id/excitedRl"
+                >
 
+                <RadioButton
+                    android:id="@+id/funRadioButton"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
 
+                    android:background="@drawable/radio_button_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/ic_fun"
+                    android:drawablePadding="10dp"
+                    android:drawableTint="@color/app_main"
+                    app:tint="@color/app_main" />
 
+                <TextView
+                    android:id="@+id/funText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/funRadioButton"
+                    android:layout_centerHorizontal="true"
+                    android:text="Радостным"
+                    android:textColor="@color/white"
+                    android:textSize="8sp"
+                    android:layout_marginTop="5dp"
+                    />
 
+            </RelativeLayout>
 
-
-        </RadioGroup>
-
+        </RelativeLayout>
 
     </HorizontalScrollView>
+
+    <RelativeLayout
+        android:id="@+id/horoscopeBlock"
+        android:layout_width="365dp"
+        android:layout_height="180dp"
+        android:layout_below="@id/moodScrollView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/block_shape">
+
+        <TextView
+            android:id="@+id/horoscopeBlockTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:text="Гороскоп"
+            android:textColor="@color/app_main"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/horoscopeBlockDesc"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/horoscopeBlockTitle"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:text="Кратенькое описание блока с двумя строчками"
+            android:textColor="@color/app_main"
+            android:textSize="15sp" />
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/horoscopeBlockDesc"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/app_main"
+            android:text="подробнее"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="120dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/daily_recommendation" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/moodBlock"
+        android:layout_width="365dp"
+        android:layout_height="180dp"
+        android:background="@drawable/block_shape"
+        android:layout_below="@id/horoscopeBlock"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        >
+
+    </RelativeLayout>
 
 </RelativeLayout>
