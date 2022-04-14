@@ -4,6 +4,121 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.main.home.HomeFragment">
+    tools:context=".presentation.main.home.HomeFragment"
+    android:background="@color/app_main"
+    >
+
+    <RelativeLayout
+        android:id="@+id/welcomeRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        >
+
+        <TextView
+            android:id="@+id/welcomeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="С возвращением, Эмиль!"
+            android:textColor="@color/white"
+            android:textSize="30sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/welcomeText"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Каким ты себя ощущаешь сегодня?"
+            android:textColor="@color/app_gray"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/welcomeRl"
+        android:scrollbars="none"
+        android:layout_marginTop="25dp"
+        >
+
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_button_selector"
+                android:drawableTop="@drawable/ic_calm"
+                android:drawableTint="@color/app_main"
+                android:drawablePadding="10dp"
+                app:tint="@color/app_main"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="12dp"
+                />
+
+            <RadioButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_button_selector"
+                android:drawableTop="@drawable/ic_relax"
+                android:drawableTint="@color/app_main"
+                android:drawablePadding="10dp"
+                app:tint="@color/app_main"
+                android:layout_marginHorizontal="12dp"
+                />
+
+            <RadioButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_button_selector"
+                android:drawableTop="@drawable/ic_focus"
+                android:drawableTint="@color/app_main"
+                android:drawablePadding="10dp"
+                app:tint="@color/app_main"
+                android:layout_marginHorizontal="12dp"
+                />
+            <RadioButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_button_selector"
+                android:drawableTop="@drawable/ic_excited"
+                android:drawableTint="@color/app_main"
+                android:drawablePadding="15dp"
+                app:tint="@color/app_main"
+                android:layout_marginHorizontal="12dp"
+                />
+
+            <RadioButton
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_button_selector"
+                android:drawableTop="@drawable/ic_fun"
+                android:drawableTint="@color/app_main"
+                android:drawablePadding="10dp"
+                app:tint="@color/app_main"
+                android:layout_marginHorizontal="12dp"
+                />
+
+
+
+
+
+
+        </RadioGroup>
+
+
+    </HorizontalScrollView>
 
 </RelativeLayout>

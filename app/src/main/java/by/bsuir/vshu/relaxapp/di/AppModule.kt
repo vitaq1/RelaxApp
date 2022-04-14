@@ -2,6 +2,11 @@ package by.bsuir.vshu.relaxapp.di
 
 import android.app.Application
 import androidx.room.Room
+import by.bsuir.vshu.productlistapp.data.remote.parser.HoroscopeParser
+import by.bsuir.vshu.relaxapp.data.local.HoroscopeDatabase
+import by.bsuir.vshu.relaxapp.data.remote.HoroscopeApi
+import by.bsuir.vshu.relaxapp.data.repository.HoroscopeRepositoryImpl
+import by.bsuir.vshu.relaxapp.domain.repository.HoroscopeRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,26 +17,32 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
-    /*@Provides
+    @Provides
     @Singleton
-    fun provideStoreApi(parser: WebParser): StoreApi {
-        return StoreApi(parser)
-    }*/
+    fun provideHoroscopeParser(): HoroscopeParser {
+        return HoroscopeParser()
+    }
 
-
-    /*@Provides
+    @Provides
     @Singleton
-    fun provideItemRepository(api: StoreApi, db: ItemDatabase): ItemRepository {
-        return ItemRepositoryImpl(api, db.dao)
-    }*/
+    fun provideHoroscopeApi(parser: HoroscopeParser): HoroscopeApi {
+        return HoroscopeApi(parser)
+    }
 
 
-    /*@Provides
+    @Provides
     @Singleton
-    fun provideItemDatabase(app: Application): ItemDatabase {
+    fun provideHoroscopeRepository(api: HoroscopeApi, db: HoroscopeDatabase): HoroscopeRepository {
+        return HoroscopeRepositoryImpl(api, db.dao)
+    }
+
+
+    @Provides
+    @Singleton
+    fun provideHoroscopeDatabase(app: Application): HoroscopeDatabase {
         return Room.databaseBuilder(
-            app, ItemDatabase::class.java, "item_db"
+            app, HoroscopeDatabase::class.java, "horoscope_db"
         ).fallbackToDestructiveMigration()
             .build()
-    }*/
+    }
 }
