@@ -2,7 +2,7 @@ package by.bsuir.vshu.relaxapp.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import by.bsuir.vshu.relaxapp.data.HoroscopeEntity
+import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeEntity
 import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeDao
 
 

@@ -18,6 +18,15 @@
     <style name="Button.Default" parent="ThemeOverlay.AppCompat">
         <item name="colorAccent">#7c9a92</item>
     </style>
+    <style name="Button.MoreInfo" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/app_main</item>
+        <item name="colorPrimary">@color/app_main</item>
+    </style>
+
+    <style name="ImageView.Rounded" parent="ThemeOverlay.AppCompat">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 
     <style name="Navbar.Default" parent="ThemeOverlay.AppCompat">
         <item name="colorPrimary">@color/white</item>

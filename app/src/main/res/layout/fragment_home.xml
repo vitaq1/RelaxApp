@@ -60,7 +60,6 @@
                     android:id="@+id/calmRadioButton"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-
                     android:background="@drawable/radio_button_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/ic_calm"
@@ -247,21 +246,23 @@
             android:layout_below="@id/horoscopeBlockTitle"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
-            android:text="Кратенькое описание блока с двумя строчками"
+            android:text="Посмотреть гороскоп на сегодня"
             android:textColor="@color/app_main"
             android:textSize="15sp" />
 
         <Button
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            android:id="@+id/horoscopeBlockButton"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
             android:layout_below="@id/horoscopeBlockDesc"
             android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/app_main"
+            android:background="@drawable/button_desc_corners"
             android:text="подробнее"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:theme="@style/Button.MoreInfo" />
 
         <ImageView
             android:layout_width="190dp"
@@ -276,11 +277,52 @@
         android:id="@+id/moodBlock"
         android:layout_width="365dp"
         android:layout_height="180dp"
-        android:background="@drawable/block_shape"
         android:layout_below="@id/horoscopeBlock"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        >
+        android:background="@drawable/block_shape">
+
+        <TextView
+            android:id="@+id/moodBlockTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="30dp"
+            android:text="Рекомендация"
+            android:textColor="@color/app_main"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/moodBlockDesc"
+            android:layout_width="190dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/moodBlockTitle"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:text="Рекомендация по настроению на сегодня"
+            android:textColor="@color/app_main"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/moodBlockButton"
+            android:layout_width="130dp"
+            android:layout_height="35dp"
+            android:layout_below="@id/moodBlockDesc"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_desc_corners"
+            android:text="подробнее"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:theme="@style/Button.MoreInfo" />
+
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="120dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/current_recommendation" />
 
     </RelativeLayout>
 

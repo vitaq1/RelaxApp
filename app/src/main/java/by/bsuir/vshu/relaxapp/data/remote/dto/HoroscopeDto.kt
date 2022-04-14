@@ -1,6 +1,6 @@
 package by.bsuir.vshu.relaxapp.data.remote.dto
 
-import by.bsuir.vshu.relaxapp.data.HoroscopeEntity
+import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeEntity
 
 data class HoroscopeDto(
     val id: Int,
