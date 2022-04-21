@@ -4,13 +4,28 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.viewModels
 import by.bsuir.vshu.relaxapp.R
+import by.bsuir.vshu.relaxapp.domain.model.User
 import by.bsuir.vshu.relaxapp.presentation.main.MainActivity
+import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import java.math.BigInteger
+import java.security.MessageDigest
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
+    private val model by viewModels<LoginViewModel>()
+
+    private var authType: Int? = null
+
+    private lateinit var mailText: EditText
+    private lateinit var passText: EditText
+    private lateinit var authTypeText: TextView
     private lateinit var signInButton: Button
     private lateinit var signUpButton: TextView
     private lateinit var profileButton: Button
@@ -20,21 +35,64 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         initViews()
+
+        authType = intent.extras?.get("auth_type") as Int
+
+        if (authType == 1) {
+            authTypeText.text = "Sign up"
+            signInButton.text = "Sign Up"
+            signUpButton.text = "authorization"
+            signInButton.apply { setOnClickListener { register() } }
+            signUpButton.setOnClickListener { openLoginActivity(0) }
+        }
+
     }
 
 
     private fun initViews() {
-
+        authTypeText = findViewById(R.id.authTypeText)
         signInButton = findViewById(R.id.signInButton)
-        signInButton.apply { setOnClickListener { openMainActivity() } }
+        signInButton.apply { setOnClickListener { authenticate() } }
         signUpButton = findViewById(R.id.signUpButton)
-        signUpButton.apply { setOnClickListener { openMainActivity() } }
+        signUpButton.apply { setOnClickListener { openLoginActivity(1) } }
         profileButton = findViewById(R.id.profileButton)
         profileButton.apply { setOnClickListener { openMainActivity() } }
+        mailText = findViewById(R.id.mailText)
+        passText = findViewById(R.id.passText)
     }
 
     private fun openMainActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
     }
+
+    private fun openLoginActivity(authType: Int) {
+        val intent = Intent(this, LoginActivity::class.java)
+        intent.putExtra("auth_type", authType)
+        startActivity(intent)
+    }
+
+    private fun authenticate() {
+        val user: User = model.getUser(mailText.text.toString())
+        if (user != null) {
+            if (user.password == md5(passText.text.toString())) {
+                println("true")
+                openMainActivity()
+            } else println("incorrect pass")
+        }
+    }
+
+    private fun register() {
+        val mail = mailText.text.toString()
+        val pass = md5(passText.text.toString())
+        val status: Long = model.addUser(User(mail = mail, password = pass))
+        println(status)
+
+    }
+
+    private fun md5(input: String): String {
+        val md = MessageDigest.getInstance("MD5")
+        return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+    }
+
 }

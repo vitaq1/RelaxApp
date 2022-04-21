@@ -27,13 +27,14 @@ class OnboardingActivity : AppCompatActivity() {
     private fun initViews() {
 
         signInButton = findViewById(R.id.signInButton)
-        signInButton.apply { setOnClickListener { openLoginActivity() } }
+        signInButton.apply { setOnClickListener { openLoginActivity(0) } }
         signUpButton = findViewById(R.id.signUpButton)
-        signUpButton.apply { setOnClickListener { openLoginActivity() } }
+        signUpButton.apply { setOnClickListener { openLoginActivity(1) } }
     }
 
-    private fun openLoginActivity() {
+    private fun openLoginActivity(authType: Int) {
         val intent = Intent(this, LoginActivity::class.java)
+        intent.putExtra("auth_type", authType)
         startActivity(intent)
     }
 

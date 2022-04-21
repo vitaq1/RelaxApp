@@ -39,6 +39,7 @@
         android:paddingHorizontal="20dp">
 
         <EditText
+            android:id="@+id/mailText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:backgroundTint="@color/app_gray"
@@ -48,6 +49,7 @@
             />
 
         <EditText
+            android:id="@+id/passText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="15dp"

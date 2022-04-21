@@ -11,4 +11,10 @@ interface HoroscopeDao {
 
     @Query("SELECT * FROM horoscopeentity")
     suspend fun getHoroscope(): HoroscopeEntity
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertUser(user: UserEntity): Long
+
+    @Query("SELECT * FROM userentity WHERE mail = :id")
+    suspend fun getUserById(id: String): UserEntity
 }
