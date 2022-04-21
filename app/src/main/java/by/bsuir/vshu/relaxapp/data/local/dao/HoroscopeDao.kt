@@ -17,4 +17,8 @@ interface HoroscopeDao {
 
     @Query("SELECT * FROM userentity WHERE mail = :id")
     suspend fun getUserById(id: String): UserEntity
+
+    @Update
+    suspend fun updateUser(user: UserEntity)
+
 }

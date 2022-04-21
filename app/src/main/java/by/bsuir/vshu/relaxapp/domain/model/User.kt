@@ -7,10 +7,11 @@ data class User(
 
     val mail: String,
     val password: String,
-    val name: String = "User",
-    val weight: Double = 0.0,
-    val pressure: Int = 0,
-    val image: String = ""
+    var name: String = "User",
+    var age: Int = 0,
+    var weight: Double = 0.0,
+    var pressure: Int = 0,
+    var image: String = ""
 
 
 ) {
@@ -19,6 +20,7 @@ data class User(
             mail = mail,
             password = password,
             name = name,
+            age = age,
             weight = weight,
             pressure = pressure,
             image = image,

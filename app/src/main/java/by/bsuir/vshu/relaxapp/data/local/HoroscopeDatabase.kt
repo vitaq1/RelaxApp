@@ -10,7 +10,7 @@ import by.bsuir.vshu.relaxapp.data.local.dao.UserEntity
 
 @Database(
     entities = [HoroscopeEntity::class, UserEntity::class, MoodEntity::class],
-    version = 2
+    version = 4
 )
 abstract class HoroscopeDatabase: RoomDatabase() {
 

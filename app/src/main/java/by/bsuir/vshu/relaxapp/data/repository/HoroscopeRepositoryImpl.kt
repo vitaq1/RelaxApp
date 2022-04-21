@@ -75,4 +75,8 @@ class HoroscopeRepositoryImpl @Inject constructor(
         return dao.insertUser(user.toUserEntity())
     }
 
+    override suspend fun updateUser(user: User) {
+        return dao.updateUser(user.toUserEntity())
+    }
+
 }

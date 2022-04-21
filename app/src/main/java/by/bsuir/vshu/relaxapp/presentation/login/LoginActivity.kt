@@ -56,13 +56,14 @@ class LoginActivity : AppCompatActivity() {
         signUpButton = findViewById(R.id.signUpButton)
         signUpButton.apply { setOnClickListener { openLoginActivity(1) } }
         profileButton = findViewById(R.id.profileButton)
-        profileButton.apply { setOnClickListener { openMainActivity() } }
+        profileButton.apply { setOnClickListener { openMainActivity("1") } }
         mailText = findViewById(R.id.mailText)
         passText = findViewById(R.id.passText)
     }
 
-    private fun openMainActivity() {
+    private fun openMainActivity(id: String) {
         val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("id", id)
         startActivity(intent)
     }
 
@@ -77,7 +78,7 @@ class LoginActivity : AppCompatActivity() {
         if (user != null) {
             if (user.password == md5(passText.text.toString())) {
                 println("true")
-                openMainActivity()
+                openMainActivity(user.mail)
             } else println("incorrect pass")
         }
     }

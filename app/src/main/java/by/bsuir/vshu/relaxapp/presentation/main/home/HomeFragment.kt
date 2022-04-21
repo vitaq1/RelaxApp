@@ -1,18 +1,26 @@
 package by.bsuir.vshu.relaxapp.presentation.main.home
 
+import android.content.Context
 import android.content.DialogInterface
+import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.RadioButton
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.bsuir.vshu.relaxapp.R
+import by.bsuir.vshu.relaxapp.presentation.main.MainActivity
 import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
 import by.bsuir.vshu.relaxapp.util.Mood
+import com.bumptech.glide.Glide
+import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -20,8 +28,10 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private val model by activityViewModels<SharedViewModel>()
-
     private var radioGroup: MutableList<RadioButton> = mutableListOf()
+
+    private lateinit var welcomeText: TextView
+    //private lateinit var exitButton: ShapeableImageView
 
     private lateinit var calmRadioButton: RadioButton
     private lateinit var relaxRadioButton: RadioButton
@@ -37,7 +47,6 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
@@ -47,11 +56,15 @@ class HomeFragment : Fragment() {
         initViews()
         setListeners()
         setObservers()
+
+
     }
 
 
     private fun initViews() {
 
+        //exitButton = requireActivity().findViewById(R.id.exitButton)
+        welcomeText = requireView().findViewById(R.id.welcomeText)
         calmRadioButton = requireView().findViewById(R.id.calmRadioButton)
         relaxRadioButton = requireView().findViewById(R.id.relaxRadioButton)
         focusRadioButton = requireView().findViewById(R.id.focusRadioButton)
@@ -82,6 +95,13 @@ class HomeFragment : Fragment() {
     private fun setObservers() {
         model.horoscope.observe(viewLifecycleOwner) {
             println(it)
+        }
+        model.user.observe(viewLifecycleOwner){
+            welcomeText.apply { text = "С возвращением, ${model.user.value?.name}" }
+            /*if (model.user.value?.image != "") {
+                Glide.with(this).load(Uri.parse(model.user.value?.image)).centerCrop()
+                    .into(exitButton)
+            }*/
         }
     }
 

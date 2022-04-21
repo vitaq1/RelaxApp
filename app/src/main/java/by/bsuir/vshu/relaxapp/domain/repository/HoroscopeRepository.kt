@@ -17,10 +17,7 @@ interface HoroscopeRepository {
 
     suspend fun addUser(user: User): Long
 
-/*    suspend fun updateItem(item: Item)
+    suspend fun updateUser(user: User)
 
-    fun getResults(): Flow<Resource<List<Result>>>
-
-    suspend fun insertResult(result: Result)*/
 
 }
