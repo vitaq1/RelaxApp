@@ -1,6 +1,9 @@
 package by.bsuir.vshu.relaxapp.presentation.login
 
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -9,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import by.bsuir.vshu.relaxapp.R
+import by.bsuir.vshu.relaxapp.domain.model.Photo
 import by.bsuir.vshu.relaxapp.domain.model.User
 import by.bsuir.vshu.relaxapp.presentation.main.MainActivity
 import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
@@ -87,13 +91,27 @@ class LoginActivity : AppCompatActivity() {
         val mail = mailText.text.toString()
         val pass = md5(passText.text.toString())
         val status: Long = model.addUser(User(mail = mail, password = pass))
-        println(status)
+        if (status == 1L){
+            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im1).toString(),"11:00"))
+            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im2).toString(),"15:55"))
+            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im3).toString(),"19:11"))
+            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im4).toString(),"11:11"))
+        }
 
     }
 
     private fun md5(input: String): String {
         val md = MessageDigest.getInstance("MD5")
         return BigInteger(1, md.digest(input.toByteArray())).toString(16).padStart(32, '0')
+    }
+
+    private fun Context.resourceUri(resourceId: Int): Uri = with(resources) {
+        Uri.Builder()
+            .scheme(ContentResolver.SCHEME_ANDROID_RESOURCE)
+            .authority(getResourcePackageName(resourceId))
+            .appendPath(getResourceTypeName(resourceId))
+            .appendPath(getResourceEntryName(resourceId))
+            .build()
     }
 
 }

@@ -23,6 +23,12 @@ class MainActivity : AppCompatActivity() {
 
         navView.setupWithNavController(navController)
 
-        model.loadUser(intent.extras?.get("id").toString())
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val id: String = intent.extras?.get("id").toString()
+        model.loadUser(id)
+        model.loadPhotos(id)
     }
 }

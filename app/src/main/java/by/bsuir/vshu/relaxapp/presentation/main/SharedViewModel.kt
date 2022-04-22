@@ -4,11 +4,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import by.bsuir.vshu.relaxapp.domain.model.Horoscope
+import by.bsuir.vshu.relaxapp.domain.model.Photo
 import by.bsuir.vshu.relaxapp.domain.model.User
-import by.bsuir.vshu.relaxapp.domain.use_case.GetHoroscopeUseCase
-import by.bsuir.vshu.relaxapp.domain.use_case.GetRecommendationUseCase
-import by.bsuir.vshu.relaxapp.domain.use_case.GetUserUseCase
-import by.bsuir.vshu.relaxapp.domain.use_case.UpdateUserUseCase
+import by.bsuir.vshu.relaxapp.domain.use_case.*
 import by.bsuir.vshu.relaxapp.util.Mood
 import by.bsuir.vshu.relaxapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,10 +25,13 @@ class SharedViewModel @Inject constructor(
     private val getRecommendationUseCase: GetRecommendationUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val updateUserUseCase: UpdateUserUseCase,
+    private val getPhotosUseCase: GetPhotosUseCase,
+    private val addPhotoUseCase: AddPhotoUseCase,
 ) : ViewModel() {
 
     var horoscope: MutableLiveData<Horoscope> = MutableLiveData()
     var user: MutableLiveData<User> = MutableLiveData()
+    var photos: MutableLiveData<List<Photo>> = MutableLiveData()
 
     init {
         loadHoroscope()
@@ -39,6 +40,23 @@ class SharedViewModel @Inject constructor(
     private fun loadHoroscope() {
         viewModelScope.launch {
             horoscope.value = getHoroscopeUseCase()!!
+        }
+    }
+
+    fun loadPhotos(id: String) {
+        viewModelScope.launch {
+            photos.value = getPhotosUseCase(id)!!
+            photos.forceRefresh()
+        }
+    }
+
+    fun getPhotos(id: String): List<Photo> = runBlocking {
+        withContext(Dispatchers.Default) { getPhotosUseCase(id) }
+    }
+
+    fun addPhoto(photo: Photo) {
+        viewModelScope.launch {
+            addPhotoUseCase(photo)
         }
     }
 
@@ -61,5 +79,10 @@ class SharedViewModel @Inject constructor(
             updateUserUseCase(user.value!!)
         }
     }
+
+}
+
+fun <T> MutableLiveData<T>.forceRefresh() {
+    this.value = this.value
 }
 

@@ -1,15 +1,18 @@
 package by.bsuir.vshu.relaxapp.presentation.menu
 
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import by.bsuir.vshu.relaxapp.R
+import by.bsuir.vshu.relaxapp.presentation.help.HelpActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.pow
 import kotlin.math.roundToInt
@@ -20,6 +23,8 @@ class MenuActivity : AppCompatActivity() {
 
     private val model by viewModels<MenuViewModel>()
 
+    private lateinit var helpButton: ImageView
+    private lateinit var infoButton: ImageView
     private lateinit var nameText: EditText
     private lateinit var ageText: EditText
     private lateinit var weightText: EditText
@@ -42,6 +47,8 @@ class MenuActivity : AppCompatActivity() {
 
     private fun initViews() {
 
+        helpButton = findViewById(R.id.helpButton)
+        infoButton = findViewById(R.id.infoButton)
         nameText = findViewById(R.id.nameText)
         ageText = findViewById(R.id.ageText)
         weightText = findViewById(R.id.weightText)
@@ -54,6 +61,8 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun setListeners() {
+        helpButton.setOnClickListener { openHelpActivity() }
+        infoButton.setOnClickListener {  }
         saveButton.setOnClickListener { saveUser() }
         imtButton.setOnClickListener { calculateIMT() }
     }
@@ -91,6 +100,11 @@ class MenuActivity : AppCompatActivity() {
         alert.setNegativeButton("Close",
             DialogInterface.OnClickListener { dialog, id -> dialog.dismiss() })
         alert.show()
+    }
+
+    private fun openHelpActivity(){
+        val intent = Intent(this, HelpActivity::class.java)
+        startActivity(intent)
     }
 
 }

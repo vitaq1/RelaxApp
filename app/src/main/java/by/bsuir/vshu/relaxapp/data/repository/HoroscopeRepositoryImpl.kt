@@ -3,6 +3,7 @@ package by.bsuir.vshu.relaxapp.data.repository
 
 import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeDao
 import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeEntity
+import by.bsuir.vshu.relaxapp.data.local.dao.PhotoEntity
 import by.bsuir.vshu.relaxapp.data.local.dao.UserEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.flow
 import by.bsuir.vshu.relaxapp.data.remote.HoroscopeApi
 import by.bsuir.vshu.relaxapp.data.remote.dto.toHoroscopeEntity
 import by.bsuir.vshu.relaxapp.domain.model.Horoscope
+import by.bsuir.vshu.relaxapp.domain.model.Photo
 import by.bsuir.vshu.relaxapp.domain.model.User
 import by.bsuir.vshu.relaxapp.domain.repository.HoroscopeRepository
 import by.bsuir.vshu.relaxapp.util.Mood
@@ -70,5 +72,22 @@ class HoroscopeRepositoryImpl @Inject constructor(
     override suspend fun updateUser(user: User) {
         return dao.updateUser(user.toUserEntity())
     }
+
+    override suspend fun getPhotosByUserId(id: String): List<Photo> {
+        return dao.getPhotosByUserId(id).map { it.toPhoto() }
+    }
+
+    override suspend fun addPhoto(photo: Photo) {
+        return dao.insertPhoto(photo.toPhotoEntity())
+    }
+
+    override suspend fun getPhotoById(id: Int): Photo {
+        return dao.getPhotoById(id).toPhoto()
+    }
+
+    override suspend fun deletePhotoById(id: Int) {
+        return dao.deletePhotoById(id)
+    }
+
 
 }

@@ -14,6 +14,7 @@ import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.bsuir.vshu.relaxapp.R
+import by.bsuir.vshu.relaxapp.domain.model.Photo
 import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
 import by.bsuir.vshu.relaxapp.presentation.menu.MenuActivity
 import by.bsuir.vshu.relaxapp.presentation.photo.PhotoActivity
@@ -39,7 +40,6 @@ class ProfileFragment : Fragment() {
     private lateinit var heightText: TextView
     private lateinit var pressureText: TextView
     private lateinit var addPhotoButton: CardView
-    private lateinit var pic1: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,6 +57,7 @@ class ProfileFragment : Fragment() {
         initViews()
         setListeners()
         setObservers()
+        loadPhotos()
     }
 
     private fun initViews() {
@@ -70,7 +71,6 @@ class ProfileFragment : Fragment() {
         heightText = requireView().findViewById(R.id.heightText)
         pressureText = requireView().findViewById(R.id.pressureText)
         addPhotoButton = requireView().findViewById(R.id.addPhotoButton)
-        pic1 = requireView().findViewById(R.id.pic1)
 
     }
 
@@ -92,6 +92,25 @@ class ProfileFragment : Fragment() {
                 Glide.with(this).load(Uri.parse(model.user.value?.image)).centerCrop()
                     .into(profileImage)
             }
+        }
+
+    }
+
+    private fun loadPhotos(){
+        val photos: List<Photo> = model.getPhotos(model.user.value!!.mail)
+        for (photo in photos) {
+            val picView: View = LayoutInflater.from(requireContext())
+                .inflate(R.layout.pic_view, photoGrid, false)
+
+            picView.setOnClickListener { openPhotoActivity(photo.id) }
+
+            photoGrid.addView(picView, photoGrid.childCount - 1)
+
+            val text: TextView = picView.findViewById(R.id.txtView)
+            text.text = photo.date
+
+            Glide.with(this).load(Uri.parse(photo.uri)).centerCrop()
+                .into(picView.findViewById(R.id.imView))
         }
     }
 
@@ -117,15 +136,19 @@ class ProfileFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
 
-                val picView: View = LayoutInflater.from(requireContext()).inflate(R.layout.pic_view, photoGrid,false)
+                val picView: View = LayoutInflater.from(requireContext())
+                    .inflate(R.layout.pic_view, photoGrid, false)
 
-                photoGrid.addView(picView,photoGrid.childCount - 1)
+                photoGrid.addView(picView, photoGrid.childCount - 1)
 
                 val text: TextView = picView.findViewById(R.id.txtView)
-                text.text =  SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().time).toString()
+                text.text = SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().time)
+                    .toString()
 
                 Glide.with(this).load(data!!.data).centerCrop()
                     .into(picView.findViewById(R.id.imView))
+
+                model.addPhoto(Photo(0,model.user.value!!.mail, data.data.toString(), text.text.toString()))
 
             }
             if (requestCode == SELECT_PROFILE_PICTURE) {
@@ -146,7 +169,7 @@ class ProfileFragment : Fragment() {
         startActivity(intent)
     }
 
-    private fun openMenuActivity(){
+    private fun openMenuActivity() {
         val intent = Intent(requireContext(), MenuActivity::class.java)
         intent.putExtra("id", model.user.value!!.mail)
         startActivity(intent)
