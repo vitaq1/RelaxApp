@@ -2,22 +2,21 @@ package by.bsuir.vshu.relaxapp.presentation.main.home
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.RadioButton
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.bsuir.vshu.relaxapp.R
 import by.bsuir.vshu.relaxapp.presentation.main.MainActivity
 import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
+import by.bsuir.vshu.relaxapp.presentation.menu.MenuActivity
 import by.bsuir.vshu.relaxapp.util.Mood
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
@@ -31,6 +30,7 @@ class HomeFragment : Fragment() {
     private var radioGroup: MutableList<RadioButton> = mutableListOf()
 
     private lateinit var welcomeText: TextView
+    private lateinit var menuButton: ImageView
     private lateinit var exitButton: ShapeableImageView
 
     private lateinit var calmRadioButton: RadioButton
@@ -62,7 +62,7 @@ class HomeFragment : Fragment() {
 
 
     private fun initViews() {
-
+        menuButton = requireView().findViewById(R.id.menuButton)
         exitButton = requireView().findViewById(R.id.exitButton)
         welcomeText = requireView().findViewById(R.id.welcomeText)
         calmRadioButton = requireView().findViewById(R.id.calmRadioButton)
@@ -81,14 +81,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun setListeners() {
-        calmRadioButton.apply { setOnClickListener { checkRadioButton(it) } }
-        relaxRadioButton.apply { setOnClickListener { checkRadioButton(it) } }
-        focusRadioButton.apply { setOnClickListener { checkRadioButton(it) } }
-        excitedRadioButton.apply { setOnClickListener { checkRadioButton(it) } }
-        funRadioButton.apply { setOnClickListener { checkRadioButton(it) } }
+        menuButton.setOnClickListener { openMenuActivity() }
+        calmRadioButton.setOnClickListener { checkRadioButton(it) }
+        relaxRadioButton.setOnClickListener { checkRadioButton(it) }
+        focusRadioButton.setOnClickListener { checkRadioButton(it) }
+        excitedRadioButton.setOnClickListener { checkRadioButton(it) }
+        funRadioButton.setOnClickListener { checkRadioButton(it) }
 
-        horoscopeBlockButton.apply { setOnClickListener { showHoroscope() } }
-        moodBlockButton.apply { setOnClickListener { showMoodRecommendation() } }
+        horoscopeBlockButton.setOnClickListener { showHoroscope() }
+        moodBlockButton.setOnClickListener { showMoodRecommendation() }
     }
 
 
@@ -129,7 +130,6 @@ class HomeFragment : Fragment() {
     private fun showMoodRecommendation() {
 
         var mood: Mood? = null
-        println(radioGroup)
         for (item: RadioButton in radioGroup) {
             if (item.isChecked) {
                 mood = Mood.values()[radioGroup.lastIndexOf(item)]
@@ -152,6 +152,12 @@ class HomeFragment : Fragment() {
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
         }
+    }
+
+    private fun openMenuActivity(){
+        val intent = Intent(requireContext(), MenuActivity::class.java)
+        intent.putExtra("id", model.user.value!!.mail)
+        startActivity(intent)
     }
 
 }

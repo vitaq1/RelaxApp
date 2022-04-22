@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.GridLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.bsuir.vshu.relaxapp.R
 import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
+import by.bsuir.vshu.relaxapp.presentation.menu.MenuActivity
 import by.bsuir.vshu.relaxapp.presentation.photo.PhotoActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
@@ -28,11 +30,13 @@ class ProfileFragment : Fragment() {
     private val SELECT_PROFILE_PICTURE = 1
     private val SELECT_PICTURE = 2
 
+    private lateinit var menuButton: ImageView
     private lateinit var photoGrid: GridLayout
     private lateinit var profileImage: ShapeableImageView
     private lateinit var nameText: TextView
     private lateinit var ageText: TextView
     private lateinit var weightText: TextView
+    private lateinit var heightText: TextView
     private lateinit var pressureText: TextView
     private lateinit var addPhotoButton: CardView
     private lateinit var pic1: CardView
@@ -57,11 +61,13 @@ class ProfileFragment : Fragment() {
 
     private fun initViews() {
 
+        menuButton = requireView().findViewById(R.id.menuButton)
         photoGrid = requireView().findViewById(R.id.photoGrid)
         profileImage = requireView().findViewById(R.id.profileImage)
         nameText = requireView().findViewById(R.id.nameTextView)
         ageText = requireView().findViewById(R.id.ageText)
         weightText = requireView().findViewById(R.id.weightText)
+        heightText = requireView().findViewById(R.id.heightText)
         pressureText = requireView().findViewById(R.id.pressureText)
         addPhotoButton = requireView().findViewById(R.id.addPhotoButton)
         pic1 = requireView().findViewById(R.id.pic1)
@@ -71,6 +77,7 @@ class ProfileFragment : Fragment() {
     private fun setListeners() {
         profileImage.setOnClickListener { selectProfilePicture() }
         addPhotoButton.setOnClickListener { selectPicture() }
+        menuButton.setOnClickListener { openMenuActivity() }
     }
 
     private fun setObservers() {
@@ -79,6 +86,7 @@ class ProfileFragment : Fragment() {
             nameText.text = "${model.user.value?.name}"
             ageText.text = "Возраст: ${model.user.value?.age}"
             weightText.text = "Вес: ${model.user.value?.weight}"
+            heightText.text = "Рост: ${model.user.value?.height}"
             pressureText.text = "Давление: ${model.user.value?.pressure}"
             if (model.user.value?.image != "") {
                 Glide.with(this).load(Uri.parse(model.user.value?.image)).centerCrop()
@@ -132,9 +140,15 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    public fun openPhotoActivity(id: Int) {
+    private fun openPhotoActivity(id: Int) {
         val intent = Intent(requireContext(), PhotoActivity::class.java)
         intent.putExtra("photoId", id)
+        startActivity(intent)
+    }
+
+    private fun openMenuActivity(){
+        val intent = Intent(requireContext(), MenuActivity::class.java)
+        intent.putExtra("id", model.user.value!!.mail)
         startActivity(intent)
     }
 

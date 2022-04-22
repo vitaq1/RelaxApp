@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_main"
+    >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="300dp"
+        android:layout_height="500dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        app:srcCompat="@drawable/logo1"
+        tools:layout_editor_absoluteX="105dp"
+        tools:layout_editor_absoluteY="76dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
+
+    <LinearLayout
+        android:id="@+id/infos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        >
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_back"
+            tools:layout_editor_absoluteX="15dp"
+            tools:layout_editor_absoluteY="425dp" />
+
+        <TextView
+            android:id="@+id/desc"
+            android:layout_width="321dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:text="This is random text taking from lorem ipsum tesing puspose" />
+
+        <ImageView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_next"
+            tools:layout_editor_absoluteX="356dp"
+            tools:layout_editor_absoluteY="426dp" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/inds"
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:layout_below="@id/infos"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+
+        <ImageView
+            android:id="@+id/ind1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="3dp"
+            app:srcCompat="@drawable/seleted" />
+
+        <ImageView
+            android:id="@+id/ind2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="3dp"
+            app:srcCompat="@drawable/seleted" />
+
+        <ImageView
+            android:id="@+id/ind3"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_margin="3dp"
+            app:srcCompat="@drawable/seleted" />
+
+    </LinearLayout>
+
+</RelativeLayout>

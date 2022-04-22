@@ -13,6 +13,7 @@ data class UserEntity(
     var name: String = "User",
     var age: Int = 0,
     var weight: Double = 0.0,
+    var height: Int = 0,
     var pressure: Int = 0,
     var image: String = ""
 ) {
@@ -23,6 +24,7 @@ data class UserEntity(
             name = name,
             age = age,
             weight = weight,
+            height = height,
             pressure = pressure,
             image = image,
         )

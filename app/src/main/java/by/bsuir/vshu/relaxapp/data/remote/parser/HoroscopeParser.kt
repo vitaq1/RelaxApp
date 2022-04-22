@@ -1,4 +1,4 @@
-package by.bsuir.vshu.productlistapp.data.remote.parser
+package by.bsuir.vshu.relaxapp.data.remote.parser
 
 
 import by.bsuir.vshu.relaxapp.data.remote.dto.HoroscopeDto
@@ -22,6 +22,8 @@ class HoroscopeParser {
 
         val date = getDate(doc)
         val description = getDescription(doc)
+        println("date: $date")
+        println("desc: $description")
 
         return HoroscopeDto(0, date, description)
     }

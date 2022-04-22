@@ -10,7 +10,7 @@ class GetHoroscopeUseCase @Inject constructor(
     private val repository: HoroscopeRepository
 ) {
 
-    operator fun invoke(): Flow<Resource<Horoscope>> {
+    suspend operator fun invoke(): Horoscope {
         return repository.getHoroscope()
     }
 

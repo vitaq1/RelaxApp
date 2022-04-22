@@ -2,7 +2,7 @@ package by.bsuir.vshu.relaxapp.di
 
 import android.app.Application
 import androidx.room.Room
-import by.bsuir.vshu.productlistapp.data.remote.parser.HoroscopeParser
+import by.bsuir.vshu.relaxapp.data.remote.parser.HoroscopeParser
 import by.bsuir.vshu.relaxapp.data.local.HoroscopeDatabase
 import by.bsuir.vshu.relaxapp.data.remote.HoroscopeApi
 import by.bsuir.vshu.relaxapp.data.repository.HoroscopeRepositoryImpl

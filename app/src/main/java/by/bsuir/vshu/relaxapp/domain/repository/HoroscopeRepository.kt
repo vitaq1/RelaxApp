@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface HoroscopeRepository {
 
-    fun getHoroscope(): Flow<Resource<Horoscope>>
+    suspend fun getHoroscope(): Horoscope
 
     fun getRecommendation(mood: Mood): String
 

@@ -1,9 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.menu.MenuActivity">
+    tools:context=".presentation.menu.MenuActivity"
+    android:background="@color/app_main"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/settingRl"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/infoButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="50dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_info"
+            android:stateListAnimator="@animator/state_list_anim"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/helpButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_help"
+            android:layout_toEndOf="@id/infoButton"
+            android:stateListAnimator="@animator/state_list_anim"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/editRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/settingRl"
+        android:paddingHorizontal="50dp">
+
+        <RelativeLayout
+            android:id="@+id/nameRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Имя"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/nameText"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:inputType="text"
+                android:text="User"
+                android:textColor="@color/app_gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/ageRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/nameRl">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Возраст"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/ageText"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:inputType="number"
+                android:text="0"
+                android:textColor="@color/app_gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/weightRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ageRl">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Вес"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/weightText"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:inputType="numberDecimal"
+                android:text="0"
+                android:textColor="@color/app_gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/heightRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/weightRl">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Рост"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/heightText"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:inputType="number"
+                android:text="0"
+                android:textColor="@color/app_gray" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/pressureRl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/heightRl">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="Давление"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/pressureText"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:inputType="number"
+                android:text="0"
+                android:textColor="@color/app_gray" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/buttonsRl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editRl"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:paddingHorizontal="50dp">
+
+        <ImageView
+            android:id="@+id/saveButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_save"
+            android:stateListAnimator="@animator/state_list_anim"
+            app:tint="@color/white" />
+
+        <ImageView
+            android:id="@+id/imtButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_weight="0.5"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_imt"
+            android:stateListAnimator="@animator/state_list_anim"
+            app:tint="@color/white" />
+
+    </LinearLayout>
+
+</RelativeLayout>

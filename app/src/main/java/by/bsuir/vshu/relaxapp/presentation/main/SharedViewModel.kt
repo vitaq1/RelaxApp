@@ -37,17 +37,9 @@ class SharedViewModel @Inject constructor(
     }
 
     private fun loadHoroscope() {
-        getHoroscopeUseCase().onEach { result ->
-            when (result) {
-                is Resource.Success -> {
-                    horoscope.value = result.data!!
-                }
-                is Resource.Error -> {
-                }
-                is Resource.Loading -> {
-                }
-            }
-        }.launchIn(viewModelScope)
+        viewModelScope.launch {
+            horoscope.value = getHoroscopeUseCase()!!
+        }
     }
 
     fun getHoroscope(): String {
@@ -61,7 +53,6 @@ class SharedViewModel @Inject constructor(
     fun loadUser(id: String) {
         viewModelScope.launch {
             user.value = getUserUseCase(id)!!
-            println(user.value)
         }
     }
 

@@ -20,6 +20,9 @@
             android:name=".presentation.photo.PhotoActivity"
             android:exported="false" />
         <activity
+            android:name=".presentation.help.HelpActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.login.LoginActivity"
             android:exported="false" />
         <activity
