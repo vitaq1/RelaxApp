@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
     private var radioGroup: MutableList<RadioButton> = mutableListOf()
 
     private lateinit var welcomeText: TextView
-    //private lateinit var exitButton: ShapeableImageView
+    private lateinit var exitButton: ShapeableImageView
 
     private lateinit var calmRadioButton: RadioButton
     private lateinit var relaxRadioButton: RadioButton
@@ -63,7 +63,7 @@ class HomeFragment : Fragment() {
 
     private fun initViews() {
 
-        //exitButton = requireActivity().findViewById(R.id.exitButton)
+        exitButton = requireView().findViewById(R.id.exitButton)
         welcomeText = requireView().findViewById(R.id.welcomeText)
         calmRadioButton = requireView().findViewById(R.id.calmRadioButton)
         relaxRadioButton = requireView().findViewById(R.id.relaxRadioButton)
@@ -98,10 +98,10 @@ class HomeFragment : Fragment() {
         }
         model.user.observe(viewLifecycleOwner){
             welcomeText.apply { text = "С возвращением, ${model.user.value?.name}" }
-            /*if (model.user.value?.image != "") {
+            if (model.user.value?.image != "") {
                 Glide.with(this).load(Uri.parse(model.user.value?.image)).centerCrop()
                     .into(exitButton)
-            }*/
+            }
         }
     }
 
@@ -129,10 +129,10 @@ class HomeFragment : Fragment() {
     private fun showMoodRecommendation() {
 
         var mood: Mood? = null
-
+        println(radioGroup)
         for (item: RadioButton in radioGroup) {
             if (item.isChecked) {
-                mood = Mood.values()[radioGroup.indexOf(item)]
+                mood = Mood.values()[radioGroup.lastIndexOf(item)]
                 break
             }
         }

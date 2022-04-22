@@ -7,26 +7,35 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import by.bsuir.vshu.relaxapp.R
 import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
+import by.bsuir.vshu.relaxapp.presentation.photo.PhotoActivity
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class ProfileFragment : Fragment() {
 
     private val model by activityViewModels<SharedViewModel>()
 
-    private val SELECT_PICTURE = 1
+    private val SELECT_PROFILE_PICTURE = 1
+    private val SELECT_PICTURE = 2
 
+    private lateinit var photoGrid: GridLayout
     private lateinit var profileImage: ShapeableImageView
     private lateinit var nameText: TextView
     private lateinit var ageText: TextView
     private lateinit var weightText: TextView
     private lateinit var pressureText: TextView
+    private lateinit var addPhotoButton: CardView
+    private lateinit var pic1: CardView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,16 +57,20 @@ class ProfileFragment : Fragment() {
 
     private fun initViews() {
 
+        photoGrid = requireView().findViewById(R.id.photoGrid)
         profileImage = requireView().findViewById(R.id.profileImage)
         nameText = requireView().findViewById(R.id.nameTextView)
         ageText = requireView().findViewById(R.id.ageText)
         weightText = requireView().findViewById(R.id.weightText)
         pressureText = requireView().findViewById(R.id.pressureText)
+        addPhotoButton = requireView().findViewById(R.id.addPhotoButton)
+        pic1 = requireView().findViewById(R.id.pic1)
 
     }
 
     private fun setListeners() {
-        profileImage.apply { setOnClickListener { selectPhoto() } }
+        profileImage.setOnClickListener { selectProfilePicture() }
+        addPhotoButton.setOnClickListener { selectPicture() }
     }
 
     private fun setObservers() {
@@ -74,7 +87,17 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun selectPhoto() {
+    private fun selectProfilePicture() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(
+            Intent.createChooser(intent, "Select Picture"),
+            SELECT_PROFILE_PICTURE
+        )
+    }
+
+    private fun selectPicture() {
         val intent = Intent()
         intent.type = "image/*"
         intent.action = Intent.ACTION_GET_CONTENT
@@ -86,6 +109,19 @@ class ProfileFragment : Fragment() {
         if (resultCode == RESULT_OK) {
             if (requestCode == SELECT_PICTURE) {
 
+                val picView: View = LayoutInflater.from(requireContext()).inflate(R.layout.pic_view, photoGrid,false)
+
+                photoGrid.addView(picView,photoGrid.childCount - 1)
+
+                val text: TextView = picView.findViewById(R.id.txtView)
+                text.text =  SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().time).toString()
+
+                Glide.with(this).load(data!!.data).centerCrop()
+                    .into(picView.findViewById(R.id.imView))
+
+            }
+            if (requestCode == SELECT_PROFILE_PICTURE) {
+
                 Glide.with(this).load(data!!.data).centerCrop()
                     .into(profileImage)
 
@@ -94,6 +130,12 @@ class ProfileFragment : Fragment() {
 
             }
         }
+    }
+
+    public fun openPhotoActivity(id: Int) {
+        val intent = Intent(requireContext(), PhotoActivity::class.java)
+        intent.putExtra("photoId", id)
+        startActivity(intent)
     }
 
 

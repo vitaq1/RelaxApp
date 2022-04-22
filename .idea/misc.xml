@@ -26,11 +26,14 @@
         <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_onboarding.xml" value="0.29465095194922936" />
+        <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_photo.xml" value="0.264" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/activity_splash.xml" value="0.11302083333333333" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/alert_dialog_view.xml" value="0.11302083333333333" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/fragment_home.xml" value="0.4" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/fragment_listen.xml" value="0.11302083333333333" />
         <entry key="..\:/RelaxApp/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/RelaxApp/app/src/main/res/layout/pic_view.xml" value="0.25416666666666665" />
+        <entry key="..\:/RelaxApp/app/src/main/res/layout/picture_view.xml" value="0.25416666666666665" />
         <entry key="..\:/RelaxApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.11302083333333333" />
       </map>
     </option>
