@@ -58,7 +58,9 @@ class ProfileFragment : Fragment() {
         setListeners()
         setObservers()
         loadPhotos()
+        println("123")
     }
+
 
     private fun initViews() {
 
@@ -145,10 +147,13 @@ class ProfileFragment : Fragment() {
                 text.text = SimpleDateFormat("HH:mm", Locale.US).format(Calendar.getInstance().time)
                     .toString()
 
+                model.addPhoto(Photo(0,model.user.value!!.mail, data!!.data.toString(), text.text.toString()))
+
+
+
                 Glide.with(this).load(data!!.data).centerCrop()
                     .into(picView.findViewById(R.id.imView))
 
-                model.addPhoto(Photo(0,model.user.value!!.mail, data.data.toString(), text.text.toString()))
 
             }
             if (requestCode == SELECT_PROFILE_PICTURE) {
@@ -165,7 +170,7 @@ class ProfileFragment : Fragment() {
 
     private fun openPhotoActivity(id: Int) {
         val intent = Intent(requireContext(), PhotoActivity::class.java)
-        intent.putExtra("photoId", id)
+        intent.putExtra("id", id)
         startActivity(intent)
     }
 

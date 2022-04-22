@@ -28,4 +28,8 @@ interface HoroscopeRepository {
 
     suspend fun deletePhotoById(id: Int)
 
+    suspend fun getMoodsByUserId(id: String): List<by.bsuir.vshu.relaxapp.domain.model.Mood>
+
+    suspend fun addMood(mood: by.bsuir.vshu.relaxapp.domain.model.Mood)
+
 }

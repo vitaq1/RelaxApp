@@ -7,7 +7,7 @@ import by.bsuir.vshu.relaxapp.domain.model.Mood
 @Entity
 data class MoodEntity(
 
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int,
     val user_id: String,
     val mood: Int,
     val date: String

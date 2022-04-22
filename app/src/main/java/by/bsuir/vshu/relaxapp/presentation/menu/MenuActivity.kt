@@ -4,15 +4,15 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import by.bsuir.vshu.relaxapp.R
+import by.bsuir.vshu.relaxapp.domain.model.Mood
 import by.bsuir.vshu.relaxapp.presentation.help.HelpActivity
+import by.bsuir.vshu.relaxapp.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.pow
 import kotlin.math.roundToInt
@@ -23,6 +23,8 @@ class MenuActivity : AppCompatActivity() {
 
     private val model by viewModels<MenuViewModel>()
 
+    private lateinit var table: TableLayout
+    private lateinit var recText: TextView
     private lateinit var helpButton: ImageView
     private lateinit var infoButton: ImageView
     private lateinit var nameText: EditText
@@ -37,8 +39,7 @@ class MenuActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
         model.loadUser(intent.extras?.get("id").toString())
-
-
+        model.loadMoods(intent.extras?.get("id").toString())
 
         initViews()
         setListeners()
@@ -47,6 +48,8 @@ class MenuActivity : AppCompatActivity() {
 
     private fun initViews() {
 
+        table = findViewById(R.id.table)
+        recText = findViewById(R.id.recText)
         helpButton = findViewById(R.id.helpButton)
         infoButton = findViewById(R.id.infoButton)
         nameText = findViewById(R.id.nameText)
@@ -62,7 +65,7 @@ class MenuActivity : AppCompatActivity() {
 
     private fun setListeners() {
         helpButton.setOnClickListener { openHelpActivity() }
-        infoButton.setOnClickListener {  }
+        infoButton.setOnClickListener { }
         saveButton.setOnClickListener { saveUser() }
         imtButton.setOnClickListener { calculateIMT() }
     }
@@ -77,18 +80,67 @@ class MenuActivity : AppCompatActivity() {
             heightText.setText(model.user.value?.height.toString())
             pressureText.setText(model.user.value?.pressure.toString())
         }
+
+        model.moods.observe(this) {
+            fillTable(it)
+        }
     }
 
-    private fun saveUser(){
+    private fun fillTable(moods: List<Mood>) {
+
+        var k = 0
+        var funCount = 0
+        var focusCount = 0
+        var elseCount = 0
+        for (mood in moods) {
+
+            if (by.bsuir.vshu.relaxapp.util.Mood.values()[mood.mood] == by.bsuir.vshu.relaxapp.util.Mood.FUN) funCount++
+            else if (by.bsuir.vshu.relaxapp.util.Mood.values()[mood.mood] == by.bsuir.vshu.relaxapp.util.Mood.FOCUS) focusCount++
+            else elseCount ++
+
+            val tableRow = TableRow(this).apply { }
+            val date = TextView(this).apply {
+                setText("       " + mood.date)
+                gravity = Gravity.CENTER
+                textSize = 16f
+                setTextColor(resources.getColor(R.color.white))
+            }
+            val empty = TextView(this).apply {
+                setText("                       ")
+                gravity = Gravity.CENTER
+                textSize = 16f
+                setTextColor(resources.getColor(R.color.white))
+            }
+            val desc = TextView(this).apply {
+                setText(by.bsuir.vshu.relaxapp.util.Mood.values()[mood.mood].toString())
+                textSize = 16f
+                gravity = Gravity.CENTER
+                setTextColor(resources.getColor(R.color.white))
+            }
+            tableRow.addView(date, 0)
+            tableRow.addView(empty, 1)
+            tableRow.addView(desc, 2)
+            if (k % 2 == 0) tableRow.setBackgroundResource(R.color.app_gray)
+            table.addView(tableRow)
+            k++
+        }
+
+        if (funCount > focusCount) recText.text = "It's better to relax"
+        else if (funCount <= focusCount) recText.text = "It's time to relax"
+        else recText.text = "Keep balance between relax and fun"
+
+    }
+
+    private fun saveUser() {
         model.user.value!!.name = nameText.text.toString()
-        model.user.value!!.age =  ageText.text.toString().toInt()
+        model.user.value!!.age = ageText.text.toString().toInt()
         model.user.value!!.weight = weightText.text.toString().toDouble()
         model.user.value!!.height = heightText.text.toString().toInt()
         model.user.value!!.pressure = pressureText.text.toString().toInt()
         model.updateUser()
     }
 
-    private fun calculateIMT(){
+    private fun calculateIMT() {
         val alert: AlertDialog.Builder = AlertDialog.Builder(this)
         alert.setTitle("ИМТ")
         val v: View = layoutInflater.inflate(R.layout.alert_dialog_view, null)
@@ -96,13 +148,14 @@ class MenuActivity : AppCompatActivity() {
         val imt: TextView = v.findViewById(R.id.recText)
 
 
-        imt.text = "Ваш ИМТ: " + ((model.user.value!!.weight/((model.user.value!!.height/100.0).pow(2))) * 100.0).roundToInt() / 100.0
+        imt.text =
+            "Ваш ИМТ: " + ((model.user.value!!.weight / ((model.user.value!!.height / 100.0).pow(2))) * 100.0).roundToInt() / 100.0
         alert.setNegativeButton("Close",
             DialogInterface.OnClickListener { dialog, id -> dialog.dismiss() })
         alert.show()
     }
 
-    private fun openHelpActivity(){
+    private fun openHelpActivity() {
         val intent = Intent(this, HelpActivity::class.java)
         startActivity(intent)
     }

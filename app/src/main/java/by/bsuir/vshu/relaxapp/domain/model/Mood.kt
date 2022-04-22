@@ -1,5 +1,7 @@
 package by.bsuir.vshu.relaxapp.domain.model
 
+import by.bsuir.vshu.relaxapp.data.local.dao.MoodEntity
+
 
 data class Mood(
 
@@ -8,3 +10,13 @@ data class Mood(
     val mood: Int,
     val date: String
 )
+{
+    fun toMoodEntity(): MoodEntity {
+        return MoodEntity(
+            id = id,
+            user_id = user_id,
+            mood = mood,
+            date = date,
+        )
+    }
+}

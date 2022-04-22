@@ -28,6 +28,12 @@ interface HoroscopeDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertPhoto(photo: PhotoEntity)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertMood(mood: MoodEntity)
+
+    @Query("SELECT * FROM moodentity WHERE user_id = :id")
+    suspend fun getMoodsByUserId(id: String): List<MoodEntity>
+
     @Query("SELECT * FROM photoentity WHERE id = :id")
     suspend fun getPhotoById(id: Int): PhotoEntity
 

@@ -21,6 +21,8 @@ import by.bsuir.vshu.relaxapp.util.Mood
 import com.bumptech.glide.Glide
 import com.google.android.material.imageview.ShapeableImageView
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -110,6 +112,10 @@ class HomeFragment : Fragment() {
         for (item: RadioButton in radioGroup) {
             if (item.id != view.id) item.isChecked = false
         }
+
+        model.mood.value = getSelectedMood()
+        model.addMood(by.bsuir.vshu.relaxapp.domain.model.Mood(0,model.user.value!!.mail,getSelectedMood()!!.ordinal, SimpleDateFormat("dd-MM-yyyy", Locale.US).format(
+            Calendar.getInstance().time).toString()))
     }
 
     private fun showHoroscope(){
@@ -126,9 +132,7 @@ class HomeFragment : Fragment() {
 
     }
 
-
-    private fun showMoodRecommendation() {
-
+    private fun getSelectedMood(): Mood?{
         var mood: Mood? = null
         for (item: RadioButton in radioGroup) {
             if (item.isChecked) {
@@ -136,6 +140,13 @@ class HomeFragment : Fragment() {
                 break
             }
         }
+        return mood
+    }
+
+
+    private fun showMoodRecommendation() {
+
+        val mood: Mood? = getSelectedMood()
         if (mood != null) {
             val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
             alert.setTitle("Рекомендации по настроению")

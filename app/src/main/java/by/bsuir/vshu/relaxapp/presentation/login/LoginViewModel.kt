@@ -25,10 +25,6 @@ class LoginViewModel @Inject constructor(
     var user: MutableLiveData<User> = MutableLiveData()
 
 
-    init {
-
-    }
-
     fun getUser(id: String): User = runBlocking {
         withContext(Dispatchers.Default) { getUserUseCase(id) }
     }

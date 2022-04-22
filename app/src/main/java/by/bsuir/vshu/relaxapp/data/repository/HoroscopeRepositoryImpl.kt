@@ -3,10 +3,7 @@ package by.bsuir.vshu.relaxapp.data.repository
 
 import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeDao
 import by.bsuir.vshu.relaxapp.data.local.dao.HoroscopeEntity
-import by.bsuir.vshu.relaxapp.data.local.dao.PhotoEntity
 import by.bsuir.vshu.relaxapp.data.local.dao.UserEntity
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
 import by.bsuir.vshu.relaxapp.data.remote.HoroscopeApi
 import by.bsuir.vshu.relaxapp.data.remote.dto.toHoroscopeEntity
@@ -15,7 +12,6 @@ import by.bsuir.vshu.relaxapp.domain.model.Photo
 import by.bsuir.vshu.relaxapp.domain.model.User
 import by.bsuir.vshu.relaxapp.domain.repository.HoroscopeRepository
 import by.bsuir.vshu.relaxapp.util.Mood
-import by.bsuir.vshu.relaxapp.util.Resource
 
 import retrofit2.HttpException
 import java.io.IOException
@@ -87,6 +83,14 @@ class HoroscopeRepositoryImpl @Inject constructor(
 
     override suspend fun deletePhotoById(id: Int) {
         return dao.deletePhotoById(id)
+    }
+
+    override suspend fun getMoodsByUserId(id: String): List<by.bsuir.vshu.relaxapp.domain.model.Mood> {
+        return dao.getMoodsByUserId(id).map { it.toMood() }
+    }
+
+    override suspend fun addMood(mood: by.bsuir.vshu.relaxapp.domain.model.Mood) {
+        return dao.insertMood(mood.toMoodEntity())
     }
 
 

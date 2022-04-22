@@ -27,11 +27,14 @@ class SharedViewModel @Inject constructor(
     private val updateUserUseCase: UpdateUserUseCase,
     private val getPhotosUseCase: GetPhotosUseCase,
     private val addPhotoUseCase: AddPhotoUseCase,
+    private val getPhotoByIdUseCase: GetPhotoByIdUseCase,
+    private val addMoodUseCase: AddMoodUseCase,
 ) : ViewModel() {
 
     var horoscope: MutableLiveData<Horoscope> = MutableLiveData()
     var user: MutableLiveData<User> = MutableLiveData()
     var photos: MutableLiveData<List<Photo>> = MutableLiveData()
+    var mood: MutableLiveData<Mood> = MutableLiveData()
 
     init {
         loadHoroscope()
@@ -46,8 +49,11 @@ class SharedViewModel @Inject constructor(
     fun loadPhotos(id: String) {
         viewModelScope.launch {
             photos.value = getPhotosUseCase(id)!!
-            photos.forceRefresh()
         }
+    }
+
+    fun getPhoto(id: Int): Photo = runBlocking {
+        withContext(Dispatchers.Default) { getPhotoByIdUseCase(id) }
     }
 
     fun getPhotos(id: String): List<Photo> = runBlocking {
@@ -57,6 +63,11 @@ class SharedViewModel @Inject constructor(
     fun addPhoto(photo: Photo) {
         viewModelScope.launch {
             addPhotoUseCase(photo)
+        }
+    }
+    fun addMood(mood: by.bsuir.vshu.relaxapp.domain.model.Mood) {
+        viewModelScope.launch {
+            addMoodUseCase(mood)
         }
     }
 
