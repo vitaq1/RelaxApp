@@ -40,7 +40,7 @@ class HelpViewPagerAdapter(var ctx: Context) : PagerAdapter() {
                 ind1.setImageResource(R.drawable.seleted)
                 ind2.setImageResource(R.drawable.unselected)
                 ind3.setImageResource(R.drawable.unselected)
-                desc.text = "Начните новую игру, либо продолжите старую"
+                desc.text = "Смотрите гороскоп, выбирайте настроение"
                 back.visibility = View.GONE
                 next.visibility = View.VISIBLE
             }
@@ -49,7 +49,7 @@ class HelpViewPagerAdapter(var ctx: Context) : PagerAdapter() {
                 ind1.setImageResource(R.drawable.unselected)
                 ind2.setImageResource(R.drawable.seleted)
                 ind3.setImageResource(R.drawable.unselected)
-                desc.text = "Кормите кота, смотрите результаты"
+                desc.text = "Слушайте расслабляющую музыку"
                 back.visibility = View.VISIBLE
                 next.visibility = View.VISIBLE
             }
@@ -58,7 +58,7 @@ class HelpViewPagerAdapter(var ctx: Context) : PagerAdapter() {
                 ind1.setImageResource(R.drawable.unselected)
                 ind2.setImageResource(R.drawable.unselected)
                 ind3.setImageResource(R.drawable.seleted)
-                desc.text = "Зарабатывайте достижения"
+                desc.text = "Настраивайте профиль пользователя"
                 back.visibility = View.VISIBLE
                 next.visibility = View.GONE
             }

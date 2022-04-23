@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import by.bsuir.vshu.relaxapp.R
 import by.bsuir.vshu.relaxapp.domain.model.Mood
 import by.bsuir.vshu.relaxapp.presentation.help.HelpActivity
+import by.bsuir.vshu.relaxapp.presentation.info.InfoActivity
 import by.bsuir.vshu.relaxapp.util.Util
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.math.pow
@@ -65,7 +66,7 @@ class MenuActivity : AppCompatActivity() {
 
     private fun setListeners() {
         helpButton.setOnClickListener { openHelpActivity() }
-        infoButton.setOnClickListener { }
+        infoButton.setOnClickListener { openInfoActivity() }
         saveButton.setOnClickListener { saveUser() }
         imtButton.setOnClickListener { calculateIMT() }
     }
@@ -96,7 +97,7 @@ class MenuActivity : AppCompatActivity() {
 
             if (by.bsuir.vshu.relaxapp.util.Mood.values()[mood.mood] == by.bsuir.vshu.relaxapp.util.Mood.FUN) funCount++
             else if (by.bsuir.vshu.relaxapp.util.Mood.values()[mood.mood] == by.bsuir.vshu.relaxapp.util.Mood.FOCUS) focusCount++
-            else elseCount ++
+            else elseCount++
 
             val tableRow = TableRow(this).apply { }
             val date = TextView(this).apply {
@@ -132,31 +133,44 @@ class MenuActivity : AppCompatActivity() {
     }
 
     private fun saveUser() {
-        model.user.value!!.name = nameText.text.toString()
-        model.user.value!!.age = ageText.text.toString().toInt()
-        model.user.value!!.weight = weightText.text.toString().toDouble()
-        model.user.value!!.height = heightText.text.toString().toInt()
-        model.user.value!!.pressure = pressureText.text.toString().toInt()
-        model.updateUser()
+        if (nameText.text.toString().length < 10 && ageText.text.toString().length <= 3 && weightText.text.toString().length <= 4 && heightText.text.toString().length < 4 && pressureText.text.toString().length < 4) {
+            model.user.value!!.name = nameText.text.toString()
+            model.user.value!!.age = ageText.text.toString().toInt()
+            model.user.value!!.weight = weightText.text.toString().toDouble()
+            model.user.value!!.height = heightText.text.toString().toInt()
+            model.user.value!!.pressure = pressureText.text.toString().toInt()
+            model.updateUser()
+            Toast.makeText(this, "Данные успешно сохранены", Toast.LENGTH_SHORT).show()
+        } else Toast.makeText(this, "Некорректные данные", Toast.LENGTH_SHORT).show()
     }
 
     private fun calculateIMT() {
-        val alert: AlertDialog.Builder = AlertDialog.Builder(this)
-        alert.setTitle("ИМТ")
-        val v: View = layoutInflater.inflate(R.layout.alert_dialog_view, null)
-        alert.setView(v)
-        val imt: TextView = v.findViewById(R.id.recText)
+
+        if (model.user.value!!.height != 0) {
+            val alert: AlertDialog.Builder = AlertDialog.Builder(this)
+            alert.setTitle("ИМТ")
+            val v: View = layoutInflater.inflate(R.layout.alert_dialog_view, null)
+            alert.setView(v)
+            val imt: TextView = v.findViewById(R.id.recText)
 
 
-        imt.text =
-            "Ваш ИМТ: " + ((model.user.value!!.weight / ((model.user.value!!.height / 100.0).pow(2))) * 100.0).roundToInt() / 100.0
-        alert.setNegativeButton("Close",
-            DialogInterface.OnClickListener { dialog, id -> dialog.dismiss() })
-        alert.show()
+            imt.text =
+                "Ваш ИМТ: " + ((model.user.value!!.weight / ((model.user.value!!.height / 100.0).pow(
+                    2
+                ))) * 100.0).roundToInt() / 100.0
+            alert.setNegativeButton("Close",
+                DialogInterface.OnClickListener { dialog, id -> dialog.dismiss() })
+            alert.show()
+        } else Toast.makeText(this, "Некорректные данные", Toast.LENGTH_SHORT).show()
     }
 
     private fun openHelpActivity() {
         val intent = Intent(this, HelpActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun openInfoActivity() {
+        val intent = Intent(this, InfoActivity::class.java)
         startActivity(intent)
     }
 

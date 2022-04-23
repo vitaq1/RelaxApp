@@ -99,7 +99,7 @@ class HomeFragment : Fragment() {
         model.horoscope.observe(viewLifecycleOwner) {
             println(it)
         }
-        model.user.observe(viewLifecycleOwner){
+        model.user.observe(viewLifecycleOwner) {
             welcomeText.apply { text = "С возвращением, ${model.user.value?.name}" }
             if (model.user.value?.image != "") {
                 Glide.with(this).load(Uri.parse(model.user.value?.image)).centerCrop()
@@ -114,11 +114,19 @@ class HomeFragment : Fragment() {
         }
 
         model.mood.value = getSelectedMood()
-        model.addMood(by.bsuir.vshu.relaxapp.domain.model.Mood(0,model.user.value!!.mail,getSelectedMood()!!.ordinal, SimpleDateFormat("dd-MM-yyyy", Locale.US).format(
-            Calendar.getInstance().time).toString()))
+        model.addMood(
+            by.bsuir.vshu.relaxapp.domain.model.Mood(
+                0,
+                model.user.value!!.mail,
+                getSelectedMood()!!.ordinal,
+                SimpleDateFormat("dd-MM-yyyy", Locale.US).format(
+                    Calendar.getInstance().time
+                ).toString()
+            )
+        )
     }
 
-    private fun showHoroscope(){
+    private fun showHoroscope() {
 
         val alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
         alert.setTitle("Гороскоп")
@@ -132,11 +140,11 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun getSelectedMood(): Mood?{
+    private fun getSelectedMood(): Mood? {
         var mood: Mood? = null
         for (item: RadioButton in radioGroup) {
             if (item.isChecked) {
-                mood = Mood.values()[radioGroup.lastIndexOf(item)]
+                mood = Mood.values()[radioGroup.indexOf(item) % 5]
                 break
             }
         }
@@ -157,15 +165,14 @@ class HomeFragment : Fragment() {
             alert.show()
             val rec: TextView = v.findViewById(R.id.recText)
             rec.text = model.getRecommendationByMood(mood)
-        }
-        else {
+        } else {
             val toast = Toast.makeText(requireContext(), "Выберите настроение", Toast.LENGTH_LONG)
             toast.setGravity(Gravity.CENTER, 0, 0)
             toast.show()
         }
     }
 
-    private fun openMenuActivity(){
+    private fun openMenuActivity() {
         val intent = Intent(requireContext(), MenuActivity::class.java)
         intent.putExtra("id", model.user.value!!.mail)
         startActivity(intent)

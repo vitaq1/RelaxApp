@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.help.HelpActivity">
+    tools:context=".presentation.help.HelpActivity"
+    android:background="@color/app_gray"
+    >
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

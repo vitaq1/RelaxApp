@@ -55,6 +55,7 @@
             android:layout_marginTop="15dp"
             android:backgroundTint="@color/app_gray"
             android:hint="Пароль"
+            android:inputType="textPassword"
             android:textColorHint="@color/app_gray"
             android:textColor="@color/white"
             />
@@ -113,13 +114,12 @@
 
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:rotationY="180"
         android:alpha="0.6"
-        android:src="@drawable/leaf" />
+        android:src="@drawable/leaves" />
 
 
 </RelativeLayout>

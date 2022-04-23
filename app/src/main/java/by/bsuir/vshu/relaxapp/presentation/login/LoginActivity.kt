@@ -4,21 +4,22 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import by.bsuir.vshu.relaxapp.R
 import by.bsuir.vshu.relaxapp.domain.model.Photo
 import by.bsuir.vshu.relaxapp.domain.model.User
 import by.bsuir.vshu.relaxapp.presentation.main.MainActivity
-import by.bsuir.vshu.relaxapp.presentation.main.SharedViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.math.BigInteger
 import java.security.MessageDigest
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -32,7 +33,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var authTypeText: TextView
     private lateinit var signInButton: Button
     private lateinit var signUpButton: TextView
-    private lateinit var profileButton: Button
+
+    val VALID_EMAIL_ADDRESS_REGEX: Pattern =
+        Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +62,7 @@ class LoginActivity : AppCompatActivity() {
         signInButton.apply { setOnClickListener { authenticate() } }
         signUpButton = findViewById(R.id.signUpButton)
         signUpButton.apply { setOnClickListener { openLoginActivity(1) } }
-        profileButton = findViewById(R.id.profileButton)
-        profileButton.apply { setOnClickListener { openMainActivity("1") } }
+
         mailText = findViewById(R.id.mailText)
         passText = findViewById(R.id.passText)
     }
@@ -88,15 +90,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun register() {
-        val mail = mailText.text.toString()
-        val pass = md5(passText.text.toString())
-        val status: Long = model.addUser(User(mail = mail, password = pass))
-        if (status == 1L){
-            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im1).toString(),"11:00"))
-            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im2).toString(),"15:55"))
-            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im3).toString(),"19:11"))
-            model.addPhoto(Photo(0,mail, resourceUri(R.drawable.im4).toString(),"11:11"))
-        }
+
+        if (validateMail(mailText.text.toString()) && passText.text.toString().length >= 5 && passText.text.toString().length <= 20) {
+            val mail = mailText.text.toString()
+            val pass = md5(passText.text.toString())
+            val status: Long = model.addUser(User(mail = mail, password = pass))
+            println(status)
+            if (status != -1L) {
+                model.addPhoto(Photo(0, mail, resourceUri(R.drawable.im1).toString(), "11:00"))
+                model.addPhoto(Photo(0, mail, resourceUri(R.drawable.im2).toString(), "15:55"))
+                model.addPhoto(Photo(0, mail, resourceUri(R.drawable.im3).toString(), "19:11"))
+                model.addPhoto(Photo(0, mail, resourceUri(R.drawable.im4).toString(), "11:11"))
+                Toast.makeText(this, "Вы успешно зарегистрировались", Toast.LENGTH_SHORT).show()
+            }
+            else Toast.makeText(this, "Пользователь с такой почтой уже существует", Toast.LENGTH_SHORT).show()
+        } else Toast.makeText(this, "Некорректный формат email или пароля", Toast.LENGTH_SHORT)
+            .show()
 
     }
 
@@ -112,6 +121,12 @@ class LoginActivity : AppCompatActivity() {
             .appendPath(getResourceTypeName(resourceId))
             .appendPath(getResourceEntryName(resourceId))
             .build()
+    }
+
+
+    fun validateMail(emailStr: String?): Boolean {
+        val matcher: Matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(emailStr)
+        return matcher.find()
     }
 
 }
